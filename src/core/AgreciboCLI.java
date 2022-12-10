@@ -73,5 +73,13 @@ public class AgreciboCLI {
             }
             
         }
+        
+        else if (args[0].equals("logout")) {
+            try {
+                User.logOut();
+            } catch (IOException ex) {
+                Logger.getLogger(AgreciboCLI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

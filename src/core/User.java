@@ -30,7 +30,7 @@ public class User {
             super(message);
         }
     }
-    
+
     public static boolean userExists(String username) {
         File userFilePath = new File("data/users/" + username);
         return userFilePath.exists() && !userFilePath.isDirectory();
@@ -40,16 +40,13 @@ public class User {
 
         String encodedPass = getHash(password);
         List<String> credentials = Arrays.asList(passClue, encodedPass);
-        File directory = new File("data/users");
-        if (!directory.exists()) {
-            directory.mkdirs(); // create necessary folders
-        }
+        Inventory.makeDirIfNull("data/users");
+
         // if UserFile already exists throw exception
         // (conditional moved to another method for reusability)
         if (userExists(username)) {
             throw new UserFileExistsException("UserFile already exists!");
-        }
-        else {
+        } else {
             Path userFile = Paths.get("data", "users", username);
             Files.write(userFile, credentials, StandardCharsets.UTF_8);
         }
@@ -63,17 +60,28 @@ public class User {
 
         return encodedPass;
     }
-    
+
     public static boolean logIn(String username, String password) throws FileNotFoundException, IOException, NoSuchAlgorithmException {
         if (userExists(username)) {
-            FileInputStream fs = new FileInputStream("data/users/"+username);
+            FileInputStream fs = new FileInputStream("data/users/" + username);
             BufferedReader br = new BufferedReader(new InputStreamReader(fs));
             br.readLine();
             String storedHash = br.readLine();
-            return getHash(password).equals(storedHash);
-        }
-        else {
+            if (getHash(password).equals(storedHash)) {
+                Path userFile = Paths.get("data", "users", "CURRENT_USER");
+                List<String> toRecord = Arrays.asList(username);
+                Files.write(userFile, toRecord, StandardCharsets.UTF_8);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
             return false;
         }
+    }
+
+    public static void logOut() throws IOException {
+        Path userFile = Paths.get("data", "users", "CURRENT_USER");
+        Files.write(userFile, Arrays.asList(""), StandardCharsets.UTF_8);
     }
 }

@@ -1,5 +1,6 @@
 package core;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -72,6 +73,21 @@ public class Inventory {
 
     public String generateReceipt() {
         return new String();
+    }
+    
+    public void addAllowed(User user) {
+        ;
+    }
+    
+    public static void createInventory() {
+        ;
+    }
+    
+    public static void makeDirIfNull(String path) {
+        File directory = new File(path);
+        if (!directory.exists()) {
+            directory.mkdirs(); // create necessary folders
+        }
     }
 
 }
