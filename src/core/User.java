@@ -1,7 +1,11 @@
 package core;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,6 +30,11 @@ public class User {
             super(message);
         }
     }
+    
+    public static boolean userExists(String username) {
+        File userFilePath = new File("data/users/" + username);
+        return userFilePath.exists() && !userFilePath.isDirectory();
+    }
 
     public static void signUp(String username, String password, String passClue) throws NoSuchAlgorithmException, IOException, UserFileExistsException {
 
@@ -36,13 +45,14 @@ public class User {
             directory.mkdirs(); // create necessary folders
         }
         // if UserFile already exists throw exception
-        File userFilePath = new File("data/users/" + username);
-
-        if (userFilePath.exists() && !userFilePath.isDirectory()) {
+        // (conditional moved to another method for reusability)
+        if (userExists(username)) {
             throw new UserFileExistsException("UserFile already exists!");
         }
-        Path userFile = Paths.get("data", "users", username);
-        Files.write(userFile, credentials, StandardCharsets.UTF_8);
+        else {
+            Path userFile = Paths.get("data", "users", username);
+            Files.write(userFile, credentials, StandardCharsets.UTF_8);
+        }
     }
 
     public static String getHash(String password) throws NoSuchAlgorithmException {
@@ -52,5 +62,18 @@ public class User {
         String encodedPass = Base64.getEncoder().encodeToString(hash);
 
         return encodedPass;
+    }
+    
+    public static boolean logIn(String username, String password) throws FileNotFoundException, IOException, NoSuchAlgorithmException {
+        if (userExists(username)) {
+            FileInputStream fs = new FileInputStream("data/users/"+username);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fs));
+            br.readLine();
+            String storedHash = br.readLine();
+            return getHash(password).equals(storedHash);
+        }
+        else {
+            return false;
+        }
     }
 }

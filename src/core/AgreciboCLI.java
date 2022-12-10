@@ -53,5 +53,25 @@ public class AgreciboCLI {
                 System.out.println("Failed to confirm password.");
             }
         }
+        
+        else if (args[0].equals("login")) {
+            
+            String username = args[1];
+            // prompt user password
+            System.out.print("Enter password for "+username+": ");
+            String password = reader.nextLine();
+            
+            try {
+                if (User.logIn(username, password)) {
+                    System.out.println("Login Success!");
+                }
+                else {
+                    System.out.println("Login Failed.");
+                }
+            } catch (IOException | NoSuchAlgorithmException ex) {
+                Logger.getLogger(AgreciboCLI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
     }
 }
