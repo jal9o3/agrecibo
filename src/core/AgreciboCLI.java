@@ -21,13 +21,13 @@ public class AgreciboCLI {
         if (args[0].equals("signup")) {
             // prompt for username
             System.out.print("Enter username: ");
-            String username = reader.next();
+            String username = reader.nextLine();
             // prompt for password
             System.out.print("Enter password: ");
-            String password = reader.next();
+            String password = reader.nextLine();
             // prompt for password clue
             System.out.print("Enter clue for password: ");
-            String passClue = reader.next();
+            String passClue = reader.nextLine();
             if (passClue.equals(password)) {
                 System.out.println("Clue cannot be same as password!");
                 reader.close();
@@ -35,7 +35,7 @@ public class AgreciboCLI {
             }
             // ask for password confirmation
             System.out.print("Confirm password: ");
-            String confirmation = reader.next();
+            String confirmation = reader.nextLine();
             // if successful, hash password
             if (confirmation.equals(password)) {
                 try {
