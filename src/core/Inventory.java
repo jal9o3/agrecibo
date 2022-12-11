@@ -1,13 +1,6 @@
 package core;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,111 +10,111 @@ import java.util.List;
 public class Inventory {
 
     private List<Product> products;
-    private String manager;
-    private List<String> allowed;
+    private User manager;
+    private List<User> allowed;
 
-    Inventory() {
-        this.products = new ArrayList<>();
-        this.manager = new String();
-        this.allowed = new ArrayList<>();
-    }
-
-    Inventory(List products, String manager, List allowed) {
+    Inventory(List<Product> products, User manager, List<User> allowed) {
         this.products = products;
         this.manager = manager;
         this.allowed = allowed;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public String getManager() {
+    public User getManager() {
         return manager;
     }
-
-    public void setManager(String manager) {
-        this.manager = manager;
-    }
-
-    public List<String> getAllowed() {
-        return allowed;
-    }
-
-    public void setAllowed(List<String> allowed) {
-        this.allowed = allowed;
-    }
     
-    static class UserLacksPermissionsException extends Exception {
-        public UserLacksPermissionsException(String message) {
-            super(message);
-        }
-    }
-
-    public void add(Product p) throws IOException, UserLacksPermissionsException {
-        // check if current user is inventory manager or is an allowed user
-        if (this.manager.equals(User.getCurrentUser()) 
-                || this.allowed.contains(User.getCurrentUser())) {
+    @Override
+    public String toString() {
+        String result = "";
         
-            // write file details to data/inventory
-            Path productFile = Paths.get("data", "inventory", p.getName());
-            List<String> toRecord = Arrays.asList(
-                    p.getName(), Double.toString(p.getPrice()), Integer.toString(p.getStock()));
-            Files.write(productFile, toRecord, StandardCharsets.UTF_8);
+        result += this.products.size() + "\n";
+        for (Product product : this.products) {
+            // todo: replace with product.toString()
+            result += product.getName();
+            result += "," + product.getPrice();
+            result += "," + product.getStock() + "\n";
         }
-        else {
-            throw new UserLacksPermissionsException("Current user has not been granted permissions!");
+        result += manager.getFullname() + "\n";
+        result += allowed.size() + "\n";
+        for (User person : allowed) {
+            result += person.getFullname() + "\n";
         }
+        
+        return result;
     }
 
-    public void edit(Product p) {
-        ;
+    public List<Product> add(Product p) {
+        this.products.add(p);
+        return this.products;
     }
 
-    public void delete(Product p) {
-        ;
+    public List<Product> delete(Product p) {
+        // find index of product and remove element at that index
+        int i = this.products.indexOf(p);
+        this.products.remove(i);
+        return this.products;
     }
 
-    public Product search(Product p) {
-        return p;
-    }
+    public Product find(String query) {
+        // replace with binary search if sorting algorithm gets implemented
 
-    public void logIn(String username, String pass) {
-        ;
-    }
-
-    public void saveChanges() {
-        ;
-    }
-
-    public String generateSummary() {
-        return new String();
-    }
-
-    public String generateReceipt() {
-        return new String();
-    }
-
-    public void addAllowed(User user) {
-        ;
-    }
-
-    public static Inventory loadInventory() throws IOException {
-        // create new inventory instance
-        // and set its manager to the current user
-        Inventory inventory = new Inventory();
-        return inventory;
-    }
-
-    public static void makeDirIfNull(String path) {
-        File directory = new File(path);
-        if (!directory.exists()) {
-            directory.mkdirs(); // create necessary folders
+        for (Product product : this.products) {
+            if (product.getName().equals(query)) {
+                return product;
+            }
         }
+        // if product not found
+        return null;
+
     }
 
+    public List<User> allow(User u) {
+        this.allowed.add(u);
+        return this.allowed;
+    }
+
+    // todo: load inventory from string
+    public static Inventory parseInventory(String s) {
+        int i;
+        String dataArr[] = s.split("\n");
+        // get number of products
+        int numOfProducts = Integer.parseInt(dataArr[0]);
+        // load each product
+        List<Product> products = new ArrayList<>();
+        int currentLine = 1;
+        for (i=0; i<numOfProducts; i++) {
+            String productDataArr[] = dataArr[i+1].split(",");
+            String productName = productDataArr[0];
+            double price = Double.parseDouble(productDataArr[1]);
+            int stock = Integer.parseInt(productDataArr[2]);
+            Product currentProduct = new Product(productName, price, stock);
+            products.add(currentProduct);
+            currentLine++;
+        }
+        
+        // get manager name
+        String managerFullName[] = dataArr[currentLine].split(" ");
+        String managerFirstName = managerFullName[0];
+        String managerLastName = managerFullName[1];
+        User manager = new User(managerFirstName, managerLastName);
+        
+        // get number of allowed users
+        currentLine++;
+        List<User> allowed = new ArrayList<>();
+        int numOfAllowedUsers = Integer.parseInt(dataArr[currentLine]);
+        currentLine++;
+        // load each user
+        for (int y=0; y<numOfAllowedUsers; y++) {
+            String[] fullName = dataArr[currentLine].split(" ");
+            String firstName = fullName[0];
+            String lastName = fullName[1];
+            User currentUser = new User(firstName, lastName);
+            allowed.add(currentUser);
+            currentLine++;
+        }
+        // load inventory      
+        return new Inventory(products, manager, allowed);
+    }
+
+    
 }
