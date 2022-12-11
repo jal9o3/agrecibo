@@ -21,7 +21,14 @@ public class Product {
         return name + "," + Double.toString(price) + "," + Integer.toString(stock) + "\n";
     }
 
-    
+    public static Product parseProduct(String s) {
+        String productData[] = s.split(",");
+        String productName = productData[0];
+        double productPrice = Double.parseDouble(productData[1]);
+        int productStock = Integer.parseInt(productData[2]);
+        
+        return new Product(productName, productPrice, productStock);
+    }
     
     public int getStock() {
         return stock;

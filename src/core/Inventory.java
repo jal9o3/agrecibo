@@ -85,11 +85,7 @@ public class Inventory {
         List<Product> products = new ArrayList<>();
         int currentLine = 1;
         for (i=0; i<numOfProducts; i++) {
-            String productDataArr[] = dataArr[i+1].split(",");
-            String productName = productDataArr[0];
-            double price = Double.parseDouble(productDataArr[1]);
-            int stock = Integer.parseInt(productDataArr[2]);
-            Product currentProduct = new Product(productName, price, stock);
+            Product currentProduct = Product.parseProduct(dataArr[i+1]);
             products.add(currentProduct);
             currentLine++;
         }
