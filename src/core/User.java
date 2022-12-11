@@ -22,7 +22,43 @@ import java.util.List;
  */
 public class User {
 
-    String username, passwordHash, passwordClue;
+    private String username;
+    private String passwordHash;
+    private String passwordClue;
+    
+    User(String username) {
+        this.username = username;
+    }
+    
+    User() {
+        this.username = new String();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getPasswordClue() {
+        return passwordClue;
+    }
+
+    public void setPasswordClue(String passwordClue) {
+        this.passwordClue = passwordClue;
+    }
+    
+    
 
     static class UserFileExistsException extends Exception {
 
@@ -83,5 +119,11 @@ public class User {
     public static void logOut() throws IOException {
         Path userFile = Paths.get("data", "users", "CURRENT_USER");
         Files.write(userFile, Arrays.asList(""), StandardCharsets.UTF_8);
+    }
+
+    public static String getCurrentUser() throws FileNotFoundException, IOException {
+        FileInputStream fs = new FileInputStream("data/users/CURRENT_USER");
+        BufferedReader br = new BufferedReader(new InputStreamReader(fs));
+        return br.readLine();
     }
 }

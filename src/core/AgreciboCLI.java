@@ -14,7 +14,14 @@ import java.util.logging.Logger;
 public class AgreciboCLI {
 
     public static void run(String args[]) {
+        
+        //todo: store inventory data files in data/inventory
+        
         Scanner reader = new Scanner(System.in);
+        // if there isn't already, create data/inventories
+        // and/or a default inventory
+        Inventory.makeDirIfNull("data/inventories/inventory");
+        
         /**
          * AgreciboCLI signup *
          */
@@ -44,42 +51,37 @@ public class AgreciboCLI {
                 } catch (NoSuchAlgorithmException | IOException ex) {
                     Logger.getLogger(AgreciboCLI.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (User.UserFileExistsException ex) {
-                    System.out.println("Account "+username+" already exists.");
+                    System.out.println("Account " + username + " already exists.");
                     Logger.getLogger(AgreciboCLI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            // else, output 'failed to confirm password'
+            } // else, output 'failed to confirm password'
             else {
                 System.out.println("Failed to confirm password.");
             }
-        }
-        
-        else if (args[0].equals("login")) {
-            
+        } else if (args[0].equals("login")) {
+
             String username = args[1];
             // prompt user password
-            System.out.print("Enter password for "+username+": ");
+            System.out.print("Enter password for " + username + ": ");
             String password = reader.nextLine();
-            
+
             try {
                 if (User.logIn(username, password)) {
                     System.out.println("Login Success!");
-                }
-                else {
+                } else {
                     System.out.println("Login Failed.");
                 }
             } catch (IOException | NoSuchAlgorithmException ex) {
                 Logger.getLogger(AgreciboCLI.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        }
-        
-        else if (args[0].equals("logout")) {
+
+        } else if (args[0].equals("logout")) {
             try {
                 User.logOut();
             } catch (IOException ex) {
                 Logger.getLogger(AgreciboCLI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
 }
