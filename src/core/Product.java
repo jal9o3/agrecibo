@@ -16,28 +16,23 @@ public class Product {
         this.stock = stock;
     }
 
-    public int getStock() {
-        return stock;
+    @Override
+    public String toString() {
+        return name + "," + Double.toString(price) + "," + Integer.toString(stock) + "\n";
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    
+    
+    public int getStock() {
+        return stock;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
 }

@@ -22,6 +22,11 @@ public class Inventory {
     public User getManager() {
         return manager;
     }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+    
     
     @Override
     public String toString() {
@@ -30,9 +35,7 @@ public class Inventory {
         result += this.products.size() + "\n";
         for (Product product : this.products) {
             // todo: replace with product.toString()
-            result += product.getName();
-            result += "," + product.getPrice();
-            result += "," + product.getStock() + "\n";
+            result += product.toString();
         }
         result += manager.getFullname() + "\n";
         result += allowed.size() + "\n";
@@ -73,7 +76,6 @@ public class Inventory {
         return this.allowed;
     }
 
-    // todo: load inventory from string
     public static Inventory parseInventory(String s) {
         int i;
         String dataArr[] = s.split("\n");
