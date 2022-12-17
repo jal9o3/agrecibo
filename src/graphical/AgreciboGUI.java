@@ -1,5 +1,19 @@
 package graphical;
 
+import core.Security;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class AgreciboGUI extends javax.swing.JFrame {
 
     /**
@@ -38,7 +52,6 @@ public class AgreciboGUI extends javax.swing.JFrame {
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(72, 112, 246));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(950, 650));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -67,6 +80,11 @@ public class AgreciboGUI extends javax.swing.JFrame {
 
         usernameField.setBackground(new java.awt.Color(245, 246, 251));
         usernameField.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        usernameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameFieldActionPerformed(evt);
+            }
+        });
 
         passwordTitle.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         passwordTitle.setText("Password");
@@ -176,8 +194,38 @@ public class AgreciboGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordFieldActionPerformed
 
     private void signInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInButtonActionPerformed
-        // TODO add your handling code here:
+
+        BufferedReader brTest = null;
+        try {
+            brTest = new BufferedReader(new FileReader("data/username.txt"));
+            String username = brTest.readLine();
+            brTest = new BufferedReader(new FileReader("data/hash.txt"));
+            String hash = brTest.readLine();
+
+            if (usernameField.getText().equals(username)
+                    && Security.hash(passwordField.getText()).equals(hash)) {
+                // launch dashboard
+                this.setVisible(false); //hides this login screen 'temporarily'
+                new AgreciboDashboard().setVisible(true); //shows it
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AgreciboGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AgreciboGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                brTest.close();
+            } catch (IOException ex) {
+                Logger.getLogger(AgreciboGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }//GEN-LAST:event_signInButtonActionPerformed
+
+    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,6 +253,22 @@ public class AgreciboGUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AgreciboGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
+        try {
+
+            // PLACEHOLDER BEHAVIOR MUST CHANGE THIS!!
+            Files.createDirectories(Paths.get("./data"));
+            List<String> lines = Arrays.asList(Security.hash("password"));
+            Path file = Paths.get("data/hash.txt");
+            Files.write(file, lines, StandardCharsets.UTF_8);
+            lines = Arrays.asList("admin");
+            file = Paths.get("data/username.txt");
+            Files.write(file, lines, StandardCharsets.UTF_8);
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(AgreciboGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
