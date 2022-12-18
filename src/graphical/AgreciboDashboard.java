@@ -410,7 +410,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         f1CancelOrderButton.setBackground(new java.awt.Color(72, 112, 246));
         f1CancelOrderButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         f1CancelOrderButton.setForeground(new java.awt.Color(255, 255, 255));
-        f1CancelOrderButton.setText("[F1 - Cancel Order]");
+        f1CancelOrderButton.setText("[Cancel Order]");
         f1CancelOrderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 f1CancelOrderButtonActionPerformed(evt);
@@ -420,7 +420,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         f2ManageProductsButton.setBackground(new java.awt.Color(72, 112, 246));
         f2ManageProductsButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         f2ManageProductsButton.setForeground(new java.awt.Color(255, 255, 255));
-        f2ManageProductsButton.setText("[F2 - Manage Products]");
+        f2ManageProductsButton.setText("[Manage Products]");
         f2ManageProductsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 f2ManageProductsButtonActionPerformed(evt);
@@ -472,13 +472,18 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         jButton29.setBackground(new java.awt.Color(72, 112, 246));
         jButton29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton29.setForeground(new java.awt.Color(255, 255, 255));
-        jButton29.setText("[F8 - Logout]");
+        jButton29.setText("[Logout]");
+        jButton29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton29ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/graphical/Untitled design (1).png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("USERNAME");
+        jLabel3.setText("admin");
 
         time.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         time.setText("Clock");
@@ -933,6 +938,11 @@ public class AgreciboDashboard extends javax.swing.JFrame {
             dtm.setRowCount(0);
         }
     }//GEN-LAST:event_f1CancelOrderButtonActionPerformed
+
+    private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
+        this.setVisible(false);
+        new AgreciboGUI().setVisible(true);
+    }//GEN-LAST:event_jButton29ActionPerformed
 
     /**
      * @param args the command line arguments
