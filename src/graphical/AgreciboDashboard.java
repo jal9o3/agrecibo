@@ -151,7 +151,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton15 = new javax.swing.JButton();
+        deletePendingButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -159,8 +159,8 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         totalLabel = new javax.swing.JLabel();
         voucherTextField = new javax.swing.JTextField();
         cashTextField = new javax.swing.JTextField();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
+        qtyUpButton = new javax.swing.JButton();
+        qtyDownButton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         f1NewOrderButton = new javax.swing.JButton();
@@ -255,14 +255,14 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
         jTable1.getAccessibleContext().setAccessibleName("");
 
-        jButton15.setBackground(new java.awt.Color(255, 51, 51));
-        jButton15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton15.setForeground(new java.awt.Color(255, 255, 255));
-        jButton15.setText("Delete");
-        jButton15.setBorder(null);
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
+        deletePendingButton.setBackground(new java.awt.Color(255, 51, 51));
+        deletePendingButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        deletePendingButton.setForeground(new java.awt.Color(255, 255, 255));
+        deletePendingButton.setText("Delete");
+        deletePendingButton.setBorder(null);
+        deletePendingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
+                deletePendingButtonActionPerformed(evt);
             }
         });
 
@@ -308,25 +308,25 @@ public class AgreciboDashboard extends javax.swing.JFrame {
             }
         });
 
-        jButton17.setBackground(new java.awt.Color(72, 112, 246));
-        jButton17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton17.setForeground(new java.awt.Color(255, 255, 255));
-        jButton17.setText("<");
-        jButton17.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
+        qtyUpButton.setBackground(new java.awt.Color(72, 112, 246));
+        qtyUpButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        qtyUpButton.setForeground(new java.awt.Color(255, 255, 255));
+        qtyUpButton.setText("<");
+        qtyUpButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        qtyUpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
+                qtyUpButtonActionPerformed(evt);
             }
         });
 
-        jButton18.setBackground(new java.awt.Color(72, 112, 246));
-        jButton18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton18.setForeground(new java.awt.Color(255, 255, 255));
-        jButton18.setText(">");
-        jButton18.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
+        qtyDownButton.setBackground(new java.awt.Color(72, 112, 246));
+        qtyDownButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        qtyDownButton.setForeground(new java.awt.Color(255, 255, 255));
+        qtyDownButton.setText(">");
+        qtyDownButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        qtyDownButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton18ActionPerformed(evt);
+                qtyDownButtonActionPerformed(evt);
             }
         });
 
@@ -363,13 +363,13 @@ public class AgreciboDashboard extends javax.swing.JFrame {
                         .addGap(81, 81, 81))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(95, 95, 95)
-                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deletePendingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton17)
+                        .addComponent(qtyUpButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton18)
+                        .addComponent(qtyDownButton)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(29, 29, 29))
         );
@@ -379,10 +379,10 @@ public class AgreciboDashboard extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deletePendingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(qtyUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qtyDownButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -707,11 +707,15 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_productButton3ActionPerformed
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+    private void deletePendingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePendingButtonActionPerformed
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
         int selectedRowIndex = jTable1.getSelectedRow();
-        table.removeRow(selectedRowIndex);
-    }//GEN-LAST:event_jButton15ActionPerformed
+        
+        if (table.getRowCount() > 0 && selectedRowIndex >= 0) {
+            
+            table.removeRow(selectedRowIndex);
+        }
+    }//GEN-LAST:event_deletePendingButtonActionPerformed
 
     private void cashTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashTextFieldActionPerformed
         // TODO add your handling code here:
@@ -761,7 +765,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_voucherTextFieldActionPerformed
 
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+    private void qtyUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyUpButtonActionPerformed
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
         int selectedRowIndex = jTable1.getSelectedRow();
         int qty = Integer.parseInt(table.getValueAt(selectedRowIndex, 3).toString());
@@ -769,16 +773,16 @@ public class AgreciboDashboard extends javax.swing.JFrame {
             qty--;
         }
         jTable1.setValueAt(qty, selectedRowIndex, 3);
-    }//GEN-LAST:event_jButton17ActionPerformed
+    }//GEN-LAST:event_qtyUpButtonActionPerformed
 
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+    private void qtyDownButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyDownButtonActionPerformed
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
         int selectedRowIndex = jTable1.getSelectedRow();
         int qty = Integer.parseInt(table.getValueAt(selectedRowIndex, 3).toString());
         qty++;
 
         jTable1.setValueAt(qty, selectedRowIndex, 3);
-    }//GEN-LAST:event_jButton18ActionPerformed
+    }//GEN-LAST:event_qtyDownButtonActionPerformed
 
     private void allButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allButtonActionPerformed
         // TODO add your handling code here:
@@ -944,14 +948,12 @@ public class AgreciboDashboard extends javax.swing.JFrame {
     private javax.swing.JButton cat3Button;
     private javax.swing.JButton checkoutButton;
     private javax.swing.JLabel date;
+    private javax.swing.JButton deletePendingButton;
     private javax.swing.JButton f1CancelOrderButton;
     private javax.swing.JButton f1NewOrderButton;
     private javax.swing.JButton f2ManageProductsButton;
     private javax.swing.JButton f5ManageTableButton;
     private javax.swing.JButton f6SalesReportButton;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton29;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -982,6 +984,8 @@ public class AgreciboDashboard extends javax.swing.JFrame {
     private javax.swing.JButton productButton7;
     private javax.swing.JButton productButton8;
     private javax.swing.JButton productButton9;
+    private javax.swing.JButton qtyDownButton;
+    private javax.swing.JButton qtyUpButton;
     private javax.swing.JTextArea receiptTextArea;
     private javax.swing.JLabel time;
     private javax.swing.JLabel totalLabel;
