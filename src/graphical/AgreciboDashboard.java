@@ -15,13 +15,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.swing.Timer;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -46,6 +50,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
             Inventory inventory = Inventory.parseInventory(content);
             this.inventory = inventory;
             
+            
 
             initComponents();
             showTime();
@@ -57,6 +62,35 @@ public class AgreciboDashboard extends javax.swing.JFrame {
             f1NewOrderButton.setVisible(false);
             f5ManageTableButton.setVisible(false);
             f6SalesReportButton.setVisible(false);
+            
+            
+            
+            List<JButton> buttons = new ArrayList<>();
+            buttons.add(productButton1);
+            buttons.add(productButton2);
+            buttons.add(productButton3);
+            buttons.add(productButton4);
+            buttons.add(productButton5);
+            buttons.add(productButton6);
+            buttons.add(productButton7);
+            buttons.add(productButton8);
+            buttons.add(productButton9);
+            buttons.add(productButton10);
+            buttons.add(productButton11);
+            buttons.add(productButton12);
+            
+            for (int i=0; i<inventory.getProducts().size() && i<12; i++) {
+                JButton button = buttons.get(i);
+                Product product = inventory.getProducts().get(i);
+                button.setText(
+                        "<html>" 
+                        + product.getName() 
+                        + "<br>" 
+                        + "₱ " +     product.getPrice()
+                        + "</html>"
+                );
+                button.setHorizontalAlignment(SwingConstants.CENTER);
+            }
 
         } catch (IOException ex) {
             Logger.getLogger(AgreciboDashboard.class.getName()).log(Level.SEVERE, null, ex);
