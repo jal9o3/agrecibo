@@ -13,7 +13,7 @@ public class Inventory {
     private User manager;
     private List<User> allowed;
 
-    Inventory(List<Product> products, User manager, List<User> allowed) {
+    public Inventory(List<Product> products, User manager, List<User> allowed) {
         this.products = products;
         this.manager = manager;
         this.allowed = allowed;

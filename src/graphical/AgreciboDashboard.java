@@ -724,7 +724,8 @@ public class AgreciboDashboard extends javax.swing.JFrame {
 
     private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
         
-        new AgreciboManageTableScreen().setVisible(true); //shows it
+        String args[] = {""};
+        new AgreciboManageTableScreen().main(args); //shows it
     }//GEN-LAST:event_jButton33ActionPerformed
 
     /**

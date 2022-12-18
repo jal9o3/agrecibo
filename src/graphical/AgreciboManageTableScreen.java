@@ -4,6 +4,20 @@
  */
 package graphical;
 
+import core.Inventory;
+import core.Product;
+import core.Security;
+import core.User;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,6 +32,14 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
      */
     public AgreciboManageTableScreen() {
         initComponents();
+        //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        dtm.setRowCount(0);
+        /**
+         * for (int i=0; i<2; i++) { model.removeRow(i); } for (int i=0; i<1;
+         * i++) { model.removeRow(i);
+        }*
+         */
     }
 
     /**
@@ -32,7 +54,7 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         saveButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         idTextField = new javax.swing.JTextField();
@@ -45,7 +67,7 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         stockTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        updateButton = new javax.swing.JButton();
 
         jTextField2.setText("jTextField2");
 
@@ -63,10 +85,10 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(72, 112, 246));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Delete");
+        deleteButton.setBackground(new java.awt.Color(72, 112, 246));
+        deleteButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        deleteButton.setForeground(new java.awt.Color(255, 255, 255));
+        deleteButton.setText("Delete");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,10 +118,15 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Stock");
 
-        jButton3.setBackground(new java.awt.Color(72, 112, 246));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Update");
+        updateButton.setBackground(new java.awt.Color(72, 112, 246));
+        updateButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        updateButton.setForeground(new java.awt.Color(255, 255, 255));
+        updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,9 +150,9 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25)))
                 .addGap(0, 48, Short.MAX_VALUE))
         );
@@ -134,8 +161,8 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,9 +220,54 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+
+        try {
+
+            List productList = new ArrayList<>();
+            // iterate over every row, convert info into product object
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
+
+                String id = null, description = null, category = null;
+                double price = 0;
+                int stock = 0;
+                for (int j = 0; j < jTable1.getColumnCount(); j++) {
+                    if (j == 0) {
+                        id = (String) jTable1.getModel().getValueAt(i, 0);
+                    }
+                    if (j == 1) {
+                        description = (String) jTable1.getModel().getValueAt(i, 1);
+                    }
+                    if (j == 2) {
+                        price = Double.parseDouble((String) jTable1.getModel().getValueAt(i, 2));
+                    }
+                    if (j == 3) {
+                        category = (String) jTable1.getModel().getValueAt(i, 3);
+                    }
+                    if (j == 4) {
+                        stock = Integer.parseInt((String) jTable1.getModel().getValueAt(i, 4));
+                    }
+
+                }
+                Product currentProduct = new Product(description, price, stock, "", category, description, id);
+                // then add product object into array list
+                productList.add(currentProduct);
+            }
+            // add array list to inventory object
+            Inventory inventory = new Inventory(productList, new User("admin", ""), new ArrayList<>());
+            List<String> lines = Arrays.asList(inventory.toString());
+            Path file = Paths.get("data/inventory.txt");
+            Files.write(file, lines, StandardCharsets.UTF_8);
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(AgreciboManageTableScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_updateButtonActionPerformed
+
     /**
-         * @param args the command line arguments
-         */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -230,10 +302,9 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField categoryTextField;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JTextField descriptionTextField;
     private javax.swing.JTextField idTextField;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -246,5 +317,6 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
     private javax.swing.JTextField priceTextField;
     private javax.swing.JButton saveButton;
     private javax.swing.JTextField stockTextField;
+    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }
