@@ -4,9 +4,16 @@
  */
 package graphical;
 
+import core.Inventory;
+import core.Product;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import javax.swing.Timer;
 import java.util.Date;
@@ -19,27 +26,46 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author jonat
+ * @author ui: jonat behavior: Jerome Loria
  */
 public class AgreciboDashboard extends javax.swing.JFrame {
+
+    private Inventory inventory;
 
     /**
      * Creates new form AgreciboDashboard
      */
     public AgreciboDashboard() {
-        initComponents();
-        showTime();
-        showDate();
-        allButton.setVisible(false);
-        cat1Button.setVisible(false);
-        cat2Button.setVisible(false);
-        cat3Button.setVisible(false);
+        try {
+
+            // load inventory file in string
+            Path inventoryFilePath = Paths.get("data/inventory.txt");
+            String content;
+            content = Files.readString(inventoryFilePath, StandardCharsets.UTF_8);
+            // parse inventory from loaded string
+            Inventory inventory = Inventory.parseInventory(content);
+            this.inventory = inventory;
+            
+
+            initComponents();
+            showTime();
+            showDate();
+            allButton.setVisible(false);
+            cat1Button.setVisible(false);
+            cat2Button.setVisible(false);
+            cat3Button.setVisible(false);
+            f1NewOrderButton.setVisible(false);
+            f5ManageTableButton.setVisible(false);
+            f6SalesReportButton.setVisible(false);
+
+        } catch (IOException ex) {
+            Logger.getLogger(AgreciboDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void addTable(int id, String desc, double price, int qty) {
+    public void addTable(String id, String desc, double price, int qty) {
         DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-        
-        
+
         for (int row = 0; row < jTable1.getRowCount(); row++) {
             if (desc == jTable1.getValueAt(row, 1)) {
                 dt.removeRow(jTable1.convertRowIndexToModel(row));
@@ -103,29 +129,29 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         jButton18 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jButton30 = new javax.swing.JButton();
-        jButton32 = new javax.swing.JButton();
-        jButton33 = new javax.swing.JButton();
-        jButton34 = new javax.swing.JButton();
-        jButton35 = new javax.swing.JButton();
+        f1NewOrderButton = new javax.swing.JButton();
+        f1CancelOrderButton = new javax.swing.JButton();
+        f2ManageProductsButton = new javax.swing.JButton();
+        f5ManageTableButton = new javax.swing.JButton();
+        f6SalesReportButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButton29 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         time = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
-        jButton21 = new javax.swing.JButton();
-        jButton22 = new javax.swing.JButton();
+        productButton1 = new javax.swing.JButton();
+        productButton4 = new javax.swing.JButton();
+        productButton5 = new javax.swing.JButton();
+        productButton2 = new javax.swing.JButton();
+        productButton3 = new javax.swing.JButton();
+        productButton6 = new javax.swing.JButton();
+        productButton7 = new javax.swing.JButton();
+        productButton8 = new javax.swing.JButton();
+        productButton9 = new javax.swing.JButton();
+        productButton11 = new javax.swing.JButton();
+        productButton10 = new javax.swing.JButton();
+        productButton12 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         receiptTextArea = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -340,35 +366,35 @@ public class AgreciboDashboard extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton30.setBackground(new java.awt.Color(72, 112, 246));
-        jButton30.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton30.setForeground(new java.awt.Color(255, 255, 255));
-        jButton30.setText("[F1 - New Order]");
+        f1NewOrderButton.setBackground(new java.awt.Color(72, 112, 246));
+        f1NewOrderButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        f1NewOrderButton.setForeground(new java.awt.Color(255, 255, 255));
+        f1NewOrderButton.setText("[F1 - New Order]");
 
-        jButton32.setBackground(new java.awt.Color(72, 112, 246));
-        jButton32.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton32.setForeground(new java.awt.Color(255, 255, 255));
-        jButton32.setText("[F3 - Cancel Order]");
+        f1CancelOrderButton.setBackground(new java.awt.Color(72, 112, 246));
+        f1CancelOrderButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        f1CancelOrderButton.setForeground(new java.awt.Color(255, 255, 255));
+        f1CancelOrderButton.setText("[F1 - Cancel Order]");
 
-        jButton33.setBackground(new java.awt.Color(72, 112, 246));
-        jButton33.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton33.setForeground(new java.awt.Color(255, 255, 255));
-        jButton33.setText("[F4 - Manage Product]");
-        jButton33.addActionListener(new java.awt.event.ActionListener() {
+        f2ManageProductsButton.setBackground(new java.awt.Color(72, 112, 246));
+        f2ManageProductsButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        f2ManageProductsButton.setForeground(new java.awt.Color(255, 255, 255));
+        f2ManageProductsButton.setText("[F2 - Manage Products]");
+        f2ManageProductsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton33ActionPerformed(evt);
+                f2ManageProductsButtonActionPerformed(evt);
             }
         });
 
-        jButton34.setBackground(new java.awt.Color(72, 112, 246));
-        jButton34.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton34.setForeground(new java.awt.Color(255, 255, 255));
-        jButton34.setText("[F5 - Manage Table]");
+        f5ManageTableButton.setBackground(new java.awt.Color(72, 112, 246));
+        f5ManageTableButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        f5ManageTableButton.setForeground(new java.awt.Color(255, 255, 255));
+        f5ManageTableButton.setText("[F5 - Manage Table]");
 
-        jButton35.setBackground(new java.awt.Color(72, 112, 246));
-        jButton35.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton35.setForeground(new java.awt.Color(255, 255, 255));
-        jButton35.setText("[F6 - Sales Report]");
+        f6SalesReportButton.setBackground(new java.awt.Color(72, 112, 246));
+        f6SalesReportButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        f6SalesReportButton.setForeground(new java.awt.Color(255, 255, 255));
+        f6SalesReportButton.setText("[F6 - Sales Report]");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -376,15 +402,15 @@ public class AgreciboDashboard extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(f1NewOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(f1CancelOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(f2ManageProductsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(f5ManageTableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton35, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(f6SalesReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -392,11 +418,11 @@ public class AgreciboDashboard extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton35, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(f1NewOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(f1CancelOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(f2ManageProductsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(f5ManageTableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(f6SalesReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -451,87 +477,87 @@ public class AgreciboDashboard extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jButton1.setText("[Product Here]");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        productButton1.setText("[Product Here]");
+        productButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                productButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("[Product Here]");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        productButton4.setText("[Product Here]");
+        productButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                productButton4ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("[Product Here]");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        productButton5.setText("[Product Here]");
+        productButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                productButton5ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("[Product Here]");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        productButton2.setText("[Product Here]");
+        productButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                productButton2ActionPerformed(evt);
             }
         });
 
-        jButton7.setText("[Product Here]");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        productButton3.setText("[Product Here]");
+        productButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                productButton3ActionPerformed(evt);
             }
         });
 
-        jButton8.setText("[Product Here]");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        productButton6.setText("[Product Here]");
+        productButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                productButton6ActionPerformed(evt);
             }
         });
 
-        jButton5.setText("[Product Here]");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        productButton7.setText("[Product Here]");
+        productButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                productButton7ActionPerformed(evt);
             }
         });
 
-        jButton6.setText("[Product Here]");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        productButton8.setText("[Product Here]");
+        productButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                productButton8ActionPerformed(evt);
             }
         });
 
-        jButton16.setText("[Product Here]");
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
+        productButton9.setText("[Product Here]");
+        productButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
+                productButton9ActionPerformed(evt);
             }
         });
 
-        jButton20.setText("[Product Here]");
-        jButton20.addActionListener(new java.awt.event.ActionListener() {
+        productButton11.setText("[Product Here]");
+        productButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton20ActionPerformed(evt);
+                productButton11ActionPerformed(evt);
             }
         });
 
-        jButton21.setText("[Product Here]");
-        jButton21.addActionListener(new java.awt.event.ActionListener() {
+        productButton10.setText("[Product Here]");
+        productButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton21ActionPerformed(evt);
+                productButton10ActionPerformed(evt);
             }
         });
 
-        jButton22.setText("[Product Here]");
-        jButton22.addActionListener(new java.awt.event.ActionListener() {
+        productButton12.setText("[Product Here]");
+        productButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton22ActionPerformed(evt);
+                productButton12ActionPerformed(evt);
             }
         });
 
@@ -549,29 +575,29 @@ public class AgreciboDashboard extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(productButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(productButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(productButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(productButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(productButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(productButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(productButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(productButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(productButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(productButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(productButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(productButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -590,24 +616,24 @@ public class AgreciboDashboard extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(productButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(productButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(productButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(productButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(productButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(productButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(productButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(productButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(productButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(productButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(productButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(productButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane2))
                         .addGap(0, 33, Short.MAX_VALUE)))
@@ -637,9 +663,15 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        addTable(3, "Item3", 5, 1);
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void productButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton3ActionPerformed
+        int btnNum = 3;
+        Product p3;
+        if (inventory.getProducts().size() >= btnNum) {
+
+            p3 = inventory.getProducts().get(btnNum - 1);
+            addTable(p3.getId(), p3.getDescription(), p3.getPrice(), 1);
+        }
+    }//GEN-LAST:event_productButton3ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
@@ -654,41 +686,38 @@ public class AgreciboDashboard extends javax.swing.JFrame {
     private void checkoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutButtonActionPerformed
         JTextArea b = receiptTextArea;
         try {
-            
+
             b.setText("                           Agrecibo Software Group \n");
             b.setText(b.getText() + "                                     Bicol University \n");
             b.setText(b.getText() + "                                           BSCS 2A \n");
             b.setText(b.getText() + "                                      SY 2022-2023 \n");
             b.setText(b.getText() + "---------------------------------------------------------------------\n");
-            b.setText(b.getText() + "  Item \t\tQty \tPrice" +"\n");
+            b.setText(b.getText() + "  Item \t\tQty \tPrice" + "\n");
             b.setText(b.getText() + "---------------------------------------------------------------------\n");
-            
+
             DefaultTableModel df = (DefaultTableModel) jTable1.getModel();
-            
+
             // get table Product details
-            
             for (int i = 0; i < jTable1.getRowCount(); i++) {
-                
+
                 String Name = df.getValueAt(i, 1).toString();
                 String Qty = df.getValueAt(i, 3).toString();
                 String Price = df.getValueAt(i, 2).toString();
-                
-                b.setText(b.getText() +"  "+ Name+"\t\t"+Qty +"\t"+Price + "\n");
+
+                b.setText(b.getText() + "  " + Name + "\t\t" + Qty + "\t" + Price + "\n");
             }
-            
+
             b.setText(b.getText() + "---------------------------------------------------------------------\n");
-            b.setText(b.getText() + "Sub Total : " + totalLabel.getText() +"\n");
-            b.setText(b.getText() + "Cash        : " + cashTextField.getText() +"\n");
-            b.setText(b.getText() + "Voucher   : " + voucherTextField.getText() +"\n");
+            b.setText(b.getText() + "Sub Total : " + totalLabel.getText() + "\n");
+            b.setText(b.getText() + "Cash        : " + cashTextField.getText() + "\n");
+            b.setText(b.getText() + "Voucher   : " + voucherTextField.getText() + "\n");
             b.setText(b.getText() + "---------------------------------------------------------------------\n");
-            b.setText(b.getText() + "                                         Come Again!"+"\n");
+            b.setText(b.getText() + "                                         Come Again!" + "\n");
             b.setText(b.getText() + "---------------------------------------------------------------------\n");
-            b.setText(b.getText() + "                             [Modified from Dapp Code]"+"\n");
-            
-           
+            b.setText(b.getText() + "                             [Modified from Dapp Code]" + "\n");
+
             b.print(); //print
-            
-            
+
         } catch (PrinterException ex) {
             Logger.getLogger(AgreciboDashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -721,55 +750,122 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_allButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        addTable(1, "Item1", 4, 1);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void productButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton1ActionPerformed
+        int btnNum = 1;
+        Product p1;
+        if (inventory.getProducts().size() >= btnNum) {
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        addTable(2, "Item2", 3, 1);
-    }//GEN-LAST:event_jButton4ActionPerformed
+            p1 = inventory.getProducts().get(btnNum - 1);
+            addTable(p1.getId(), p1.getDescription(), p1.getPrice(), 1);
+        }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        addTable(4, "Item4", 5.50, 1);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_productButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        addTable(5, "Item5", 2.99, 1);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void productButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton2ActionPerformed
+        int btnNum = 2;
+        Product p2;
+        if (inventory.getProducts().size() >= btnNum) {
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        addTable(6, "Item6", 1.60, 1);
-    }//GEN-LAST:event_jButton8ActionPerformed
+            p2 = inventory.getProducts().get(btnNum - 1);
+            addTable(p2.getId(), p2.getDescription(), p2.getPrice(), 1);
+        }
+    }//GEN-LAST:event_productButton2ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        addTable(7, "Item7", 1, 1);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void productButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton4ActionPerformed
+        int btnNum = 4;
+        Product p4;
+        if (inventory.getProducts().size() >= btnNum) {
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        addTable(8, "Item8", 2, 1);
-    }//GEN-LAST:event_jButton6ActionPerformed
+            p4 = inventory.getProducts().get(btnNum - 1);
+            addTable(p4.getId(), p4.getDescription(), p4.getPrice(), 1);
+        }
+    }//GEN-LAST:event_productButton4ActionPerformed
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        addTable(9, "Item9", 2, 1);
-    }//GEN-LAST:event_jButton16ActionPerformed
+    private void productButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton5ActionPerformed
+        int btnNum = 5;
+        Product p5;
+        if (inventory.getProducts().size() >= btnNum) {
 
-    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        addTable(10, "Item10", 2, 1);
-    }//GEN-LAST:event_jButton21ActionPerformed
+            p5 = inventory.getProducts().get(btnNum - 1);
+            addTable(p5.getId(), p5.getDescription(), p5.getPrice(), 1);
+        }
+    }//GEN-LAST:event_productButton5ActionPerformed
 
-    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-        addTable(11, "Item11", 2, 1);
-    }//GEN-LAST:event_jButton20ActionPerformed
+    private void productButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton6ActionPerformed
+        int btnNum = 6;
+        Product p6;
+        if (inventory.getProducts().size() >= btnNum) {
 
-    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
-        addTable(12, "Item12", 2, 1);
-    }//GEN-LAST:event_jButton22ActionPerformed
+            p6 = inventory.getProducts().get(btnNum - 1);
+            addTable(p6.getId(), p6.getDescription(), p6.getPrice(), 1);
+        }
+    }//GEN-LAST:event_productButton6ActionPerformed
 
-    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
-        
+    private void productButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton7ActionPerformed
+        int btnNum = 7;
+        Product p7;
+        if (inventory.getProducts().size() >= btnNum) {
+
+            p7 = inventory.getProducts().get(btnNum - 1);
+            addTable(p7.getId(), p7.getDescription(), p7.getPrice(), 1);
+        }
+    }//GEN-LAST:event_productButton7ActionPerformed
+
+    private void productButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton8ActionPerformed
+        int btnNum = 8;
+        Product p8;
+        if (inventory.getProducts().size() >= btnNum) {
+
+            p8 = inventory.getProducts().get(btnNum - 1);
+            addTable(p8.getId(), p8.getDescription(), p8.getPrice(), 1);
+        }
+    }//GEN-LAST:event_productButton8ActionPerformed
+
+    private void productButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton9ActionPerformed
+        int btnNum = 9;
+        Product p9;
+        if (inventory.getProducts().size() >= btnNum) {
+
+            p9 = inventory.getProducts().get(btnNum - 1);
+            addTable(p9.getId(), p9.getDescription(), p9.getPrice(), 1);
+        }
+    }//GEN-LAST:event_productButton9ActionPerformed
+
+    private void productButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton10ActionPerformed
+        int btnNum = 10;
+        Product p10;
+        if (inventory.getProducts().size() >= btnNum) {
+
+            p10 = inventory.getProducts().get(btnNum - 1);
+            addTable(p10.getId(), p10.getDescription(), p10.getPrice(), 1);
+        }
+    }//GEN-LAST:event_productButton10ActionPerformed
+
+    private void productButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton11ActionPerformed
+        int btnNum = 11;
+        Product p11;
+        if (inventory.getProducts().size() >= btnNum) {
+
+            p11 = inventory.getProducts().get(btnNum - 1);
+            addTable(p11.getId(), p11.getDescription(), p11.getPrice(), 1);
+        }
+    }//GEN-LAST:event_productButton11ActionPerformed
+
+    private void productButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButton12ActionPerformed
+        int btnNum = 12;
+        Product p12;
+        if (inventory.getProducts().size() >= btnNum) {
+
+            p12 = inventory.getProducts().get(btnNum - 1);
+            addTable(p12.getId(), p12.getDescription(), p12.getPrice(), 1);
+        }
+    }//GEN-LAST:event_productButton12ActionPerformed
+
+    private void f2ManageProductsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f2ManageProductsButtonActionPerformed
+
         String args[] = {""};
         new AgreciboManageTableScreen().main(args); //shows it
-    }//GEN-LAST:event_jButton33ActionPerformed
+    }//GEN-LAST:event_f2ManageProductsButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -814,27 +910,15 @@ public class AgreciboDashboard extends javax.swing.JFrame {
     private javax.swing.JButton cat3Button;
     private javax.swing.JButton checkoutButton;
     private javax.swing.JLabel date;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton f1CancelOrderButton;
+    private javax.swing.JButton f1NewOrderButton;
+    private javax.swing.JButton f2ManageProductsButton;
+    private javax.swing.JButton f5ManageTableButton;
+    private javax.swing.JButton f6SalesReportButton;
     private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton29;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton32;
-    private javax.swing.JButton jButton33;
-    private javax.swing.JButton jButton34;
-    private javax.swing.JButton jButton35;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -852,6 +936,18 @@ public class AgreciboDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton productButton1;
+    private javax.swing.JButton productButton10;
+    private javax.swing.JButton productButton11;
+    private javax.swing.JButton productButton12;
+    private javax.swing.JButton productButton2;
+    private javax.swing.JButton productButton3;
+    private javax.swing.JButton productButton4;
+    private javax.swing.JButton productButton5;
+    private javax.swing.JButton productButton6;
+    private javax.swing.JButton productButton7;
+    private javax.swing.JButton productButton8;
+    private javax.swing.JButton productButton9;
     private javax.swing.JTextArea receiptTextArea;
     private javax.swing.JLabel time;
     private javax.swing.JLabel totalLabel;
