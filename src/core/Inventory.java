@@ -93,7 +93,14 @@ public class Inventory {
         // get manager name
         String managerFullName[] = dataArr[currentLine].split(" ");
         String managerFirstName = managerFullName[0];
-        String managerLastName = managerFullName[1];
+        String managerLastName;
+        if (managerFullName.length > 1) {
+            
+            managerLastName = managerFullName[1];
+        }
+        else {
+            managerLastName = "";
+        }
         User manager = new User(managerFirstName, managerLastName);
         
         // get number of allowed users

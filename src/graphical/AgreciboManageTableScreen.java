@@ -31,15 +31,28 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
      * Creates new form AgreciboManageTableScreen
      */
     public AgreciboManageTableScreen() {
-        initComponents();
-        //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-        dtm.setRowCount(0);
-        /**
-         * for (int i=0; i<2; i++) { model.removeRow(i); } for (int i=0; i<1;
-         * i++) { model.removeRow(i);
-        }*
-         */
+        try {
+            
+            initComponents();
+            
+            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+            dtm.setRowCount(0);
+            
+            // load inventory file in string
+            Path inventoryFilePath = Paths.get("data/inventory.txt");
+            String content = Files.readString(inventoryFilePath, StandardCharsets.UTF_8);
+            // parse inventory from loaded string
+            Inventory inventory = Inventory.parseInventory(content);
+            // display the products in inventory to jtable
+            for (Product product : inventory.getProducts()) {
+                dtm.addRow(new Object[]{product.getId(), product.getDescription(),
+                Double.toString(product.getPrice()), 
+                product.getCategory(), Integer.toString(product.getStock())});
+            }
+        } catch (IOException ex) {
+            
+            Logger.getLogger(AgreciboManageTableScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -259,7 +272,7 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
                 productList.add(currentProduct);
             }
             // add array list to inventory object
-            Inventory inventory = new Inventory(productList, new User("admin", ""), new ArrayList<>());
+            Inventory inventory = new Inventory(productList, new User("admin", " "), new ArrayList<>());
             List<String> lines = Arrays.asList(inventory.toString());
             Path file = Paths.get("data/inventory.txt");
             Files.write(file, lines, StandardCharsets.UTF_8);

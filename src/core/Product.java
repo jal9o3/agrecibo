@@ -59,4 +59,21 @@ public class Product {
         return price;
     }
 
+    public String getImageFile() {
+        return imageFile;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getId() {
+        return id;
+    }
+    
+    
 }
