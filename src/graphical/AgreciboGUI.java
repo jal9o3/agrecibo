@@ -1,15 +1,22 @@
 package graphical;
 
 import core.Security;
+import core.Voucher;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import static java.lang.ProcessBuilder.Redirect.Type.APPEND;
 import java.nio.charset.StandardCharsets;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import static java.nio.file.StandardOpenOption.CREATE;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,6 +29,8 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 public class AgreciboGUI extends javax.swing.JFrame {
+
+    
 
     class EnterAction extends AbstractAction {
 
@@ -44,9 +53,8 @@ public class AgreciboGUI extends javax.swing.JFrame {
      * Creates new form AgreciboGUI
      */
     public AgreciboGUI() {
-        
+
         Action enterAction;
-        
         initComponents();
         this.setAlwaysOnTop(true);
         this.toFront();
@@ -57,6 +65,20 @@ public class AgreciboGUI extends javax.swing.JFrame {
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke("ENTER"), "doEnter");
         signInButton.getActionMap().put("doEnter", enterAction);
+        
+        // temporary: generate vouchers and save to file
+        
+        /**vouchers.add(new Voucher("32fsd3", 0.10, false));
+         * vouchers.add(new Voucher("a244dy", 0.06, false));
+         * vouchers.add(new Voucher("bbf9d2", 0.20, false));
+         * 
+         * File vouchersFile = new File("data/vouchers.txt");
+         * vouchersFile.createNewFile(); // if file already exists will do nothing
+         * try ( PrintWriter out = new PrintWriter("data/vouchers.txt")) {
+         * for (Voucher voucher : vouchers) {
+         * out.print(voucher.toString());
+         * }
+         * }**/
     }
 
     /**

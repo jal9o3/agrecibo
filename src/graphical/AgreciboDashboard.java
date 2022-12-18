@@ -6,6 +6,7 @@ package graphical;
 
 import core.Inventory;
 import core.Product;
+import core.Voucher;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
@@ -14,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.Timer;
@@ -36,6 +38,7 @@ import javax.swing.table.DefaultTableModel;
 public class AgreciboDashboard extends javax.swing.JFrame {
 
     private Inventory inventory;
+    List<Voucher> vouchers;
 
     /**
      * Creates new form AgreciboDashboard
@@ -91,6 +94,17 @@ public class AgreciboDashboard extends javax.swing.JFrame {
                         + "</html>"
                 );
                 button.setHorizontalAlignment(SwingConstants.CENTER);
+            }
+            
+            this.vouchers = new ArrayList<>();
+            // read vouchers from file
+            content = Files.readString(Paths.get("data/vouchers.txt"), 
+                    StandardCharsets.UTF_8);
+            String voucherStrings[] = content.split("\n");
+            for (String vString : voucherStrings) {
+                // convert string to voucher obj and add to voucher arraylist
+                Voucher v = Voucher.parseVoucher(vString);
+                vouchers.add(v);
             }
 
         } catch (IOException ex) {
@@ -760,11 +774,32 @@ public class AgreciboDashboard extends javax.swing.JFrame {
             }
             
             totalLabel.setText("" + total);
+            String enteredCode = voucherTextField.getText().trim();
+            double voucheredTotal = 0;
+            for (Voucher v : vouchers) {
+                if (v.getCode().equals(enteredCode)) {
+                    voucheredTotal = total * v.getDiscount();
+                    break;
+                }
+                else {
+                    voucheredTotal = total;
+                }
+            }
+            
+            if (cashTextField.getText().equals("")) {
+                cashTextField.setText("0");
+            }
 
             b.setText(b.getText() + "-----------------------------------------------------------------------------\n");
-            b.setText(b.getText() + "Sub Total : " + totalLabel.getText() + "\n");
             b.setText(b.getText() + "Cash        : " + cashTextField.getText() + "\n");
-            b.setText(b.getText() + "Voucher   : " + voucherTextField.getText() + "\n");
+            b.setText(b.getText() + "Sub Total : - " + totalLabel.getText() + "\n");
+            
+            DecimalFormat dform = new DecimalFormat("####0.00");
+            b.setText(b.getText() + "Voucher   : " + dform.format(voucheredTotal) + "\n");
+            b.setText(b.getText() + "Change    : " 
+                    + dform.format(
+                            (Double.parseDouble(cashTextField.getText()) - (total -  voucheredTotal))) 
+                    + "\n");
             b.setText(b.getText() + "-----------------------------------------------------------------------------\n");
             b.setText(b.getText() + "                                         Come Again!" + "\n");
             b.setText(b.getText() + "-----------------------------------------------------------------------------\n");
@@ -786,10 +821,12 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         int selectedRowIndex = jTable1.getSelectedRow();
         if (table.getRowCount() > 0 && selectedRowIndex >= 0) {
             int qty = Integer.parseInt(table.getValueAt(selectedRowIndex, 3).toString());
+            double price = Double.parseDouble(table.getValueAt(selectedRowIndex, 2).toString());
             if (qty >= 2) {
                 qty--;
             }
             jTable1.setValueAt(qty, selectedRowIndex, 3);
+            jTable1.setValueAt(qty*price, selectedRowIndex, 4);
         }
     }//GEN-LAST:event_qtyUpButtonActionPerformed
 
