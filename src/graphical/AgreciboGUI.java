@@ -1,6 +1,7 @@
 package graphical;
 
 import core.Security;
+import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,19 +14,47 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 public class AgreciboGUI extends javax.swing.JFrame {
+
+    class EnterAction extends AbstractAction {
+
+        JButton button;
+
+        EnterAction(JButton button) {
+
+            this.button = button;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            button.doClick();
+        }
+
+    }
 
     /**
      * Creates new form AgreciboGUI
      */
     public AgreciboGUI() {
+        Action enterAction;
         initComponents();
         this.setAlwaysOnTop(true);
         this.toFront();
         this.requestFocus();
         usernameField.requestFocusInWindow();
+        enterAction = new EnterAction(signInButton);
+        signInButton.getInputMap(
+                JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                        KeyStroke.getKeyStroke("ENTER"), "doEnter");
+        signInButton.getActionMap().put("doEnter", enterAction);
     }
 
     /**
