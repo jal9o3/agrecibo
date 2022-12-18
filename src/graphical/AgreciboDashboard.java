@@ -29,7 +29,8 @@ public class AgreciboDashboard extends javax.swing.JFrame {
 
     public void addTable(int id, String desc, double price, int qty) {
         DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-
+        
+        
         for (int row = 0; row < jTable1.getRowCount(); row++) {
             if (desc == jTable1.getValueAt(row, 1)) {
                 dt.removeRow(jTable1.convertRowIndexToModel(row));
