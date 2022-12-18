@@ -768,20 +768,24 @@ public class AgreciboDashboard extends javax.swing.JFrame {
     private void qtyUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyUpButtonActionPerformed
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
         int selectedRowIndex = jTable1.getSelectedRow();
-        int qty = Integer.parseInt(table.getValueAt(selectedRowIndex, 3).toString());
-        if (qty >= 2) {
-            qty--;
+        if (table.getRowCount() > 0 && selectedRowIndex >= 0) {
+            int qty = Integer.parseInt(table.getValueAt(selectedRowIndex, 3).toString());
+            if (qty >= 2) {
+                qty--;
+            }
+            jTable1.setValueAt(qty, selectedRowIndex, 3);
         }
-        jTable1.setValueAt(qty, selectedRowIndex, 3);
     }//GEN-LAST:event_qtyUpButtonActionPerformed
 
     private void qtyDownButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyDownButtonActionPerformed
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
         int selectedRowIndex = jTable1.getSelectedRow();
-        int qty = Integer.parseInt(table.getValueAt(selectedRowIndex, 3).toString());
-        qty++;
+        if (table.getRowCount() > 0 && selectedRowIndex >= 0) {
+            int qty = Integer.parseInt(table.getValueAt(selectedRowIndex, 3).toString());
+            qty++;
 
-        jTable1.setValueAt(qty, selectedRowIndex, 3);
+            jTable1.setValueAt(qty, selectedRowIndex, 3);
+        }
     }//GEN-LAST:event_qtyDownButtonActionPerformed
 
     private void allButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allButtonActionPerformed
