@@ -4,6 +4,7 @@
  */
 package graphical;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -180,15 +181,21 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        
-        DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
-        model.addRow(new Object[]{idTextField.getText(), descriptionTextField.getText(),
-            priceTextField.getText(), categoryTextField.getText(), stockTextField.getText()});
+
+        try {
+            Double.parseDouble(priceTextField.getText());
+            Integer.parseInt(stockTextField.getText());
+            DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+            model.addRow(new Object[]{idTextField.getText(), descriptionTextField.getText(),
+                priceTextField.getText(), categoryTextField.getText(), stockTextField.getText()});
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid price or stock number.");
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     /**
-     * @param args the command line arguments
-     */
+         * @param args the command line arguments
+         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
