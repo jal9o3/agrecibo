@@ -98,7 +98,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         }
     }
 
-    public void addTable(String id, String desc, double price, int qty) {
+    public void addTable(String id, String desc, double price, int qty, double total) {
         DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
 
         for (int row = 0; row < jTable1.getRowCount(); row++) {
@@ -111,6 +111,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         v.add(desc);
         v.add(price);
         v.add(qty);
+        v.add(total);
 
         dt.addRow(v);
     }
@@ -709,7 +710,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p3 = inventory.getProducts().get(btnNum - 1);
-            addTable(p3.getId(), p3.getDescription(), p3.getPrice(), 1);
+            addTable(p3.getId(), p3.getDescription(), p3.getPrice(), 1, p3.getPrice());
         }
     }//GEN-LAST:event_productButton3ActionPerformed
 
@@ -741,15 +742,19 @@ public class AgreciboDashboard extends javax.swing.JFrame {
 
             DefaultTableModel df = (DefaultTableModel) jTable1.getModel();
 
+            double total = 0;
             // get table Product details
             for (int i = 0; i < jTable1.getRowCount(); i++) {
 
                 String Name = df.getValueAt(i, 1).toString();
                 String Qty = df.getValueAt(i, 3).toString();
                 String Price = df.getValueAt(i, 2).toString();
+                total += Double.parseDouble(df.getValueAt(i, 4).toString());
 
                 b.setText(b.getText() + "  " + Name + "\t\t" + Qty + "\t" + Price + "\n");
             }
+            
+            totalLabel.setText("" + total);
 
             b.setText(b.getText() + "-----------------------------------------------------------------------------\n");
             b.setText(b.getText() + "Sub Total : " + totalLabel.getText() + "\n");
@@ -788,9 +793,11 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         int selectedRowIndex = jTable1.getSelectedRow();
         if (table.getRowCount() > 0 && selectedRowIndex >= 0) {
             int qty = Integer.parseInt(table.getValueAt(selectedRowIndex, 3).toString());
+            double price = Double.parseDouble(table.getValueAt(selectedRowIndex, 2).toString());
             qty++;
 
             jTable1.setValueAt(qty, selectedRowIndex, 3);
+            jTable1.setValueAt(qty*price, selectedRowIndex, 4);
         }
     }//GEN-LAST:event_qtyDownButtonActionPerformed
 
@@ -804,7 +811,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p1 = inventory.getProducts().get(btnNum - 1);
-            addTable(p1.getId(), p1.getDescription(), p1.getPrice(), 1);
+            addTable(p1.getId(), p1.getDescription(), p1.getPrice(), 1, p1.getPrice());
         }
 
     }//GEN-LAST:event_productButton1ActionPerformed
@@ -815,7 +822,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p2 = inventory.getProducts().get(btnNum - 1);
-            addTable(p2.getId(), p2.getDescription(), p2.getPrice(), 1);
+            addTable(p2.getId(), p2.getDescription(), p2.getPrice(), 1, p2.getPrice());
         }
     }//GEN-LAST:event_productButton2ActionPerformed
 
@@ -825,7 +832,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p4 = inventory.getProducts().get(btnNum - 1);
-            addTable(p4.getId(), p4.getDescription(), p4.getPrice(), 1);
+            addTable(p4.getId(), p4.getDescription(), p4.getPrice(), 1, p4.getPrice());
         }
     }//GEN-LAST:event_productButton4ActionPerformed
 
@@ -835,7 +842,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p5 = inventory.getProducts().get(btnNum - 1);
-            addTable(p5.getId(), p5.getDescription(), p5.getPrice(), 1);
+            addTable(p5.getId(), p5.getDescription(), p5.getPrice(), 1, p5.getPrice());
         }
     }//GEN-LAST:event_productButton5ActionPerformed
 
@@ -845,7 +852,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p6 = inventory.getProducts().get(btnNum - 1);
-            addTable(p6.getId(), p6.getDescription(), p6.getPrice(), 1);
+            addTable(p6.getId(), p6.getDescription(), p6.getPrice(), 1, p6.getPrice());
         }
     }//GEN-LAST:event_productButton6ActionPerformed
 
@@ -855,7 +862,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p7 = inventory.getProducts().get(btnNum - 1);
-            addTable(p7.getId(), p7.getDescription(), p7.getPrice(), 1);
+            addTable(p7.getId(), p7.getDescription(), p7.getPrice(), 1, p7.getPrice());
         }
     }//GEN-LAST:event_productButton7ActionPerformed
 
@@ -865,7 +872,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p8 = inventory.getProducts().get(btnNum - 1);
-            addTable(p8.getId(), p8.getDescription(), p8.getPrice(), 1);
+            addTable(p8.getId(), p8.getDescription(), p8.getPrice(), 1, p8.getPrice());
         }
     }//GEN-LAST:event_productButton8ActionPerformed
 
@@ -875,7 +882,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p9 = inventory.getProducts().get(btnNum - 1);
-            addTable(p9.getId(), p9.getDescription(), p9.getPrice(), 1);
+            addTable(p9.getId(), p9.getDescription(), p9.getPrice(), 1, p9.getPrice());
         }
     }//GEN-LAST:event_productButton9ActionPerformed
 
@@ -885,7 +892,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p10 = inventory.getProducts().get(btnNum - 1);
-            addTable(p10.getId(), p10.getDescription(), p10.getPrice(), 1);
+            addTable(p10.getId(), p10.getDescription(), p10.getPrice(), 1, p10.getPrice());
         }
     }//GEN-LAST:event_productButton10ActionPerformed
 
@@ -895,7 +902,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p11 = inventory.getProducts().get(btnNum - 1);
-            addTable(p11.getId(), p11.getDescription(), p11.getPrice(), 1);
+            addTable(p11.getId(), p11.getDescription(), p11.getPrice(), 1, p11.getPrice());
         }
     }//GEN-LAST:event_productButton11ActionPerformed
 
@@ -905,7 +912,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         if (inventory.getProducts().size() >= btnNum) {
 
             p12 = inventory.getProducts().get(btnNum - 1);
-            addTable(p12.getId(), p12.getDescription(), p12.getPrice(), 1);
+            addTable(p12.getId(), p12.getDescription(), p12.getPrice(), 1, p12.getPrice());
         }
     }//GEN-LAST:event_productButton12ActionPerformed
 
