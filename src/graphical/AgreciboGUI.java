@@ -44,7 +44,9 @@ public class AgreciboGUI extends javax.swing.JFrame {
      * Creates new form AgreciboGUI
      */
     public AgreciboGUI() {
+        
         Action enterAction;
+        
         initComponents();
         this.setAlwaysOnTop(true);
         this.toFront();

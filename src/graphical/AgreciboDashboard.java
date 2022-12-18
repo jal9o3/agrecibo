@@ -735,9 +735,9 @@ public class AgreciboDashboard extends javax.swing.JFrame {
             b.setText(b.getText() + "                                     Bicol University \n");
             b.setText(b.getText() + "                                           BSCS 2A \n");
             b.setText(b.getText() + "                                      SY 2022-2023 \n");
-            b.setText(b.getText() + "---------------------------------------------------------------------\n");
+            b.setText(b.getText() + "--------------------------------------------------------------------------\n");
             b.setText(b.getText() + "  Item \t\tQty \tPrice" + "\n");
-            b.setText(b.getText() + "---------------------------------------------------------------------\n");
+            b.setText(b.getText() + "--------------------------------------------------------------------------\n");
 
             DefaultTableModel df = (DefaultTableModel) jTable1.getModel();
 
@@ -751,13 +751,13 @@ public class AgreciboDashboard extends javax.swing.JFrame {
                 b.setText(b.getText() + "  " + Name + "\t\t" + Qty + "\t" + Price + "\n");
             }
 
-            b.setText(b.getText() + "---------------------------------------------------------------------\n");
+            b.setText(b.getText() + "-----------------------------------------------------------------------------\n");
             b.setText(b.getText() + "Sub Total : " + totalLabel.getText() + "\n");
             b.setText(b.getText() + "Cash        : " + cashTextField.getText() + "\n");
             b.setText(b.getText() + "Voucher   : " + voucherTextField.getText() + "\n");
-            b.setText(b.getText() + "---------------------------------------------------------------------\n");
+            b.setText(b.getText() + "-----------------------------------------------------------------------------\n");
             b.setText(b.getText() + "                                         Come Again!" + "\n");
-            b.setText(b.getText() + "---------------------------------------------------------------------\n");
+            b.setText(b.getText() + "-----------------------------------------------------------------------------\n");
             b.setText(b.getText() + "                             [Modified from Dapp Code]" + "\n");
 
             b.print(); //print
@@ -912,6 +912,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
     private void f2ManageProductsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f2ManageProductsButtonActionPerformed
 
         String args[] = {""};
+        this.setVisible(false);
         new AgreciboManageTableScreen().main(args); //shows it
     }//GEN-LAST:event_f2ManageProductsButtonActionPerformed
 
