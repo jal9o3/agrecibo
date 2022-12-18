@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author jonat
@@ -27,12 +26,12 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         showTime();
         showDate();
     }
-    
-    public void addTable(int id, String desc, double price, int qty){
+
+    public void addTable(int id, String desc, double price, int qty) {
         DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-        
-        for(int row = 0; row < jTable1.getRowCount(); row++){
-            if (desc == jTable1.getValueAt(row, 1)){
+
+        for (int row = 0; row < jTable1.getRowCount(); row++) {
+            if (desc == jTable1.getValueAt(row, 1)) {
                 dt.removeRow(jTable1.convertRowIndexToModel(row));
             }
         }
@@ -41,27 +40,29 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         v.add(desc);
         v.add(price);
         v.add(qty);
-        
+
         dt.addRow(v);
     }
-    void showTime(){
-        new Timer(0, new ActionListener(){
+
+    void showTime() {
+        new Timer(0, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Date d = new Date();
                 SimpleDateFormat s = new SimpleDateFormat("hh: mm: ss a");
                 time.setText(s.format(d));
-            }   
+            }
         }
         ).start();
     }
-    
-    void showDate(){
+
+    void showDate() {
         Date d = new Date();
         SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy");
         date.setText(s.format(d));
-         
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -342,6 +343,11 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         jButton33.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton33.setForeground(new java.awt.Color(255, 255, 255));
         jButton33.setText("[F4 - Manage Product]");
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton33ActionPerformed(evt);
+            }
+        });
 
         jButton34.setBackground(new java.awt.Color(72, 112, 246));
         jButton34.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -652,8 +658,8 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
         int selectedRowIndex = jTable1.getSelectedRow();
         int qty = Integer.parseInt(table.getValueAt(selectedRowIndex, 3).toString());
-        if(qty >= 2){
-        qty--;
+        if (qty >= 2) {
+            qty--;
         }
         jTable1.setValueAt(qty, selectedRowIndex, 3);
     }//GEN-LAST:event_jButton17ActionPerformed
@@ -663,7 +669,7 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         int selectedRowIndex = jTable1.getSelectedRow();
         int qty = Integer.parseInt(table.getValueAt(selectedRowIndex, 3).toString());
         qty++;
-        
+
         jTable1.setValueAt(qty, selectedRowIndex, 3);
     }//GEN-LAST:event_jButton18ActionPerformed
 
@@ -714,6 +720,11 @@ public class AgreciboDashboard extends javax.swing.JFrame {
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
         addTable(12, "Item12", 2, 1);
     }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
+        
+        new AgreciboManageTableScreen().setVisible(true); //shows it
+    }//GEN-LAST:event_jButton33ActionPerformed
 
     /**
      * @param args the command line arguments
