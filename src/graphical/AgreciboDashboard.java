@@ -23,6 +23,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -409,6 +410,11 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         f1CancelOrderButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         f1CancelOrderButton.setForeground(new java.awt.Color(255, 255, 255));
         f1CancelOrderButton.setText("[F1 - Cancel Order]");
+        f1CancelOrderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                f1CancelOrderButtonActionPerformed(evt);
+            }
+        });
 
         f2ManageProductsButton.setBackground(new java.awt.Color(72, 112, 246));
         f2ManageProductsButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -908,6 +914,17 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         String args[] = {""};
         new AgreciboManageTableScreen().main(args); //shows it
     }//GEN-LAST:event_f2ManageProductsButtonActionPerformed
+
+    private void f1CancelOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_f1CancelOrderButtonActionPerformed
+        
+        int responseOK = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to cancel?",
+                "Confirm Cancel", JOptionPane.OK_CANCEL_OPTION);
+        if (responseOK == 0) {
+            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+            dtm.setRowCount(0);
+        }
+    }//GEN-LAST:event_f1CancelOrderButtonActionPerformed
 
     /**
      * @param args the command line arguments
