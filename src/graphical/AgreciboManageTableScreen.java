@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,17 +29,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AgreciboManageTableScreen extends javax.swing.JFrame {
 
+    boolean unsavedChanges = false;
+
     /**
      * Creates new form AgreciboManageTableScreen
      */
     public AgreciboManageTableScreen() {
         try {
-            
+
             initComponents();
-            
+
             DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
             dtm.setRowCount(0);
-            
+
             // load inventory file in string
             Path inventoryFilePath = Paths.get("data/inventory.txt");
             String content = Files.readString(inventoryFilePath, StandardCharsets.UTF_8);
@@ -46,11 +50,18 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
             // display the products in inventory to jtable
             for (Product product : inventory.getProducts()) {
                 dtm.addRow(new Object[]{product.getId(), product.getDescription(),
-                Double.toString(product.getPrice()), 
-                product.getCategory(), Integer.toString(product.getStock())});
+                    Double.toString(product.getPrice()),
+                    product.getCategory(), Integer.toString(product.getStock())});
             }
+
+            jTable1.getModel().addTableModelListener(
+                    new TableModelListener() {
+                public void tableChanged(TableModelEvent evt) {
+                    unsavedChanges = true;
+                }
+            });
         } catch (IOException ex) {
-            
+
             Logger.getLogger(AgreciboManageTableScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -248,6 +259,7 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
             model.addRow(new Object[]{idTextField.getText(), descriptionTextField.getText(),
                 priceTextField.getText(), categoryTextField.getText(), stockTextField.getText()});
+            unsavedChanges = true;
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Invalid price or stock number.");
         }
@@ -291,6 +303,7 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
             List<String> lines = Arrays.asList(inventory.toString());
             Path file = Paths.get("data/inventory.txt");
             Files.write(file, lines, StandardCharsets.UTF_8);
+            unsavedChanges = false;
 
         } catch (IOException ex) {
 
@@ -305,13 +318,26 @@ public class AgreciboManageTableScreen extends javax.swing.JFrame {
             for (int i = selectedRows.length - 1; i >= 0; i--) {
                 model.removeRow(selectedRows[i]);
             }
+            unsavedChanges = true;
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // close this window and open updated dashboard
-        this.setVisible(false);
-        new AgreciboDashboard().setVisible(true);
+        if (unsavedChanges) {
+            // ask user to confirm
+            int responseOK = JOptionPane.showConfirmDialog(this,
+                    "Exit without saving?",
+                    "Unsaved Changes", JOptionPane.OK_CANCEL_OPTION);
+            if (responseOK == 0) {
+                this.setVisible(false);
+                new AgreciboDashboard().setVisible(true);
+            }
+        } else {
+            this.setVisible(false);
+            new AgreciboDashboard().setVisible(true);
+        }
+
     }//GEN-LAST:event_backButtonActionPerformed
 
     /**
