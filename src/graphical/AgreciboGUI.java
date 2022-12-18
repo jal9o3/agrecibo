@@ -22,6 +22,10 @@ public class AgreciboGUI extends javax.swing.JFrame {
      */
     public AgreciboGUI() {
         initComponents();
+        this.setAlwaysOnTop(true);
+        this.toFront();
+        this.requestFocus();
+        usernameField.requestFocusInWindow();
     }
 
     /**
@@ -208,9 +212,7 @@ public class AgreciboGUI extends javax.swing.JFrame {
                 // launch dashboard
                 this.setVisible(false); //hides this login screen 'temporarily'
                 new AgreciboDashboard().setVisible(true); //shows it
-            }
-            
-            else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Incorrect username or password.");
             }
 
@@ -279,6 +281,7 @@ public class AgreciboGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AgreciboGUI().setVisible(true);
+
             }
         });
     }
