@@ -666,8 +666,8 @@ public class AgreciboDashboard extends javax.swing.JFrame {
             for (int i = 0; i < jTable1.getRowCount(); i++) {
                 
                 String Name = df.getValueAt(i, 1).toString();
-                String Qty = df.getValueAt(i, 2).toString();
-                String Price = df.getValueAt(i, 3).toString();
+                String Qty = df.getValueAt(i, 3).toString();
+                String Price = df.getValueAt(i, 2).toString();
                 
                 b.setText(b.getText() +"  "+ Name+"\t\t"+Qty +"\t"+Price + "\n");
             }
