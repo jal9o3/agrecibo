@@ -164,15 +164,15 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton26" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton27" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton28" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="cat1Button" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="cat2Button" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="cat3Button" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton25" min="-2" max="-2" attributes="0"/>
+                      <Component id="allButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -181,38 +181,38 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="jButton25" min="-2" pref="72" max="-2" attributes="0"/>
+                      <Component id="allButton" min="-2" pref="72" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="jButton26" min="-2" pref="72" max="-2" attributes="0"/>
+                      <Component id="cat1Button" min="-2" pref="72" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="jButton27" min="-2" pref="72" max="-2" attributes="0"/>
+                      <Component id="cat2Button" min="-2" pref="72" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="jButton28" min="-2" pref="72" max="-2" attributes="0"/>
+                      <Component id="cat3Button" min="-2" pref="72" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton25">
+            <Component class="javax.swing.JButton" name="allButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="All"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton25ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="allButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton26">
+            <Component class="javax.swing.JButton" name="cat1Button">
               <Properties>
                 <Property name="text" type="java.lang.String" value="[CAT 1]"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton27">
+            <Component class="javax.swing.JButton" name="cat2Button">
               <Properties>
                 <Property name="text" type="java.lang.String" value="[CAT 2]"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton28">
+            <Component class="javax.swing.JButton" name="cat3Button">
               <Properties>
                 <Property name="text" type="java.lang.String" value="[CAT 3]"/>
               </Properties>

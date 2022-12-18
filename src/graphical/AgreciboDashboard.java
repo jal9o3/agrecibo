@@ -30,6 +30,10 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         initComponents();
         showTime();
         showDate();
+        allButton.setVisible(false);
+        cat1Button.setVisible(false);
+        cat2Button.setVisible(false);
+        cat3Button.setVisible(false);
     }
 
     public void addTable(int id, String desc, double price, int qty) {
@@ -80,10 +84,10 @@ public class AgreciboDashboard extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton25 = new javax.swing.JButton();
-        jButton26 = new javax.swing.JButton();
-        jButton27 = new javax.swing.JButton();
-        jButton28 = new javax.swing.JButton();
+        allButton = new javax.swing.JButton();
+        cat1Button = new javax.swing.JButton();
+        cat2Button = new javax.swing.JButton();
+        cat3Button = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -135,18 +139,18 @@ public class AgreciboDashboard extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton25.setText("All");
-        jButton25.addActionListener(new java.awt.event.ActionListener() {
+        allButton.setText("All");
+        allButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton25ActionPerformed(evt);
+                allButtonActionPerformed(evt);
             }
         });
 
-        jButton26.setText("[CAT 1]");
+        cat1Button.setText("[CAT 1]");
 
-        jButton27.setText("[CAT 2]");
+        cat2Button.setText("[CAT 2]");
 
-        jButton28.setText("[CAT 3]");
+        cat3Button.setText("[CAT 3]");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -155,26 +159,26 @@ public class AgreciboDashboard extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton26, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton27, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton28, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(cat1Button, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cat2Button, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cat3Button, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton25)
+                .addComponent(allButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(allButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cat1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cat2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cat3Button, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -713,9 +717,9 @@ public class AgreciboDashboard extends javax.swing.JFrame {
         jTable1.setValueAt(qty, selectedRowIndex, 3);
     }//GEN-LAST:event_jButton18ActionPerformed
 
-    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
+    private void allButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton25ActionPerformed
+    }//GEN-LAST:event_allButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         addTable(1, "Item1", 4, 1);
@@ -803,7 +807,11 @@ public class AgreciboDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton allButton;
     private javax.swing.JTextField cashTextField;
+    private javax.swing.JButton cat1Button;
+    private javax.swing.JButton cat2Button;
+    private javax.swing.JButton cat3Button;
     private javax.swing.JButton checkoutButton;
     private javax.swing.JLabel date;
     private javax.swing.JButton jButton1;
@@ -815,10 +823,6 @@ public class AgreciboDashboard extends javax.swing.JFrame {
     private javax.swing.JButton jButton20;
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton25;
-    private javax.swing.JButton jButton26;
-    private javax.swing.JButton jButton27;
-    private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton30;
