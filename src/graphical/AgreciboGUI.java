@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class AgreciboGUI extends javax.swing.JFrame {
 
@@ -207,6 +208,10 @@ public class AgreciboGUI extends javax.swing.JFrame {
                 // launch dashboard
                 this.setVisible(false); //hides this login screen 'temporarily'
                 new AgreciboDashboard().setVisible(true); //shows it
+            }
+            
+            else {
+                JOptionPane.showMessageDialog(this, "Incorrect username or password.");
             }
 
         } catch (FileNotFoundException ex) {
